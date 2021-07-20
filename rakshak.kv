@@ -1,0 +1,239 @@
+#: import MapView kivy_garden.mapview.MapView
+#: import screen_stack __main__.screen_stack
+
+ScreenManager:
+    AppOpen:
+    Home:
+    Login:
+    Register:
+    WelcomeScreen:
+    Dashboard:
+    Map:
+
+<AppOpen>:
+    name: 'AppOpenScreen'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    Image:
+        source: './AppOpenScreen/AppOpenImage.png'
+        pos_hint: {"center_x": .5, "center_y": .57}
+        size_hint: None, None
+        size: '200dp', '200dp'
+    MDLabel:
+        halign: 'center'
+        text: 'Welcome to\nRakshak - The Life Savior'
+        pos_hint: {"center_x": .5, "center_y": .3}
+        bold: True
+
+<Home>:
+    screen_stack: screen_stack
+    name: 'HomeScreen'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    MDToolbar:
+        title: "Rakshak"
+        size_hint: 1, None
+        height: "40dp"
+        pos_hint: {'top': 1}
+    Image:
+        source: './HomeScreen/HomeBackground.jpeg'
+        pos_hint: {"center_x": .5, "center_y": .6}
+        size_hint: None, None
+        size: '250dp', '250dp'
+    MDFillRoundFlatIconButton:
+        pos_hint: {"center_x": .5, "center_y": .35}
+        icon: "login-variant"
+        text: "Register"
+        background_normal: ''
+        bg_color: 0, 15/255, 80/255
+        on_release:
+            screen_stack.append('RegisterScreen')
+            root.manager.current = 'RegisterScreen'
+            root.manager.transition.direction = 'left'
+    MDFillRoundFlatIconButton:
+        pos_hint: {"center_x": .5, "center_y": .25}
+        icon: "login"
+        text: "Login"
+        background_normal: ''
+        background_color: 0, 15/255, 52/255
+        on_release:
+            screen_stack.append('LoginScreen')
+            root.manager.current = 'LoginScreen'
+            root.manager.transition.direction = 'left'
+
+<Register>:
+    name: 'RegisterScreen'
+    register_name: register_name
+    register_phone: register_phone
+    register_username: register_username
+    register_password: register_password
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    MDToolbar:
+        title: "Register"
+        size_hint: 1, None
+        height: "40dp"
+        pos_hint: {'top': 1}
+        left_action_items: [["arrow-left", lambda x: root.prev_screen()]]
+    Image:
+        source: './RegisterScreen/RegisterBackground.jpeg'
+        pos_hint: {"center_x": .7, "center_y": .8}
+        size_hint: None, None
+        size: '140dp', '150dp'
+    TextInput:
+        id: register_name
+        hint_text: 'Enter Name'
+        multiline: False
+        size_hint: 0.8, None
+        text: ''
+        height: '30dp'
+        pos_hint: {"center_x": .5, "center_y": .65}
+        write_tab: False
+        required: True
+    TextInput:
+        id: register_phone
+        hint_text: 'Enter Phone'
+        multiline: False
+        size_hint: 0.8, None
+        height: '30dp'
+        pos_hint: {"center_x": .5, "center_y": .55}
+        write_tab: False
+        required: True
+        input_filter: 'int'
+    TextInput:
+        id: register_username
+        hint_text: 'Enter Username'
+        multiline: False
+        size_hint: 0.8, None
+        height: '30dp'
+        pos_hint: {"center_x": .5, "center_y": .45}
+        write_tab: False
+        required: True
+    TextInput:
+        id: register_password
+        hint_text: 'Enter Password'
+        multiline: False
+        size_hint: 0.8, None
+        height: '30dp'
+        pos_hint: {"center_x": .5, "center_y": .35}
+        write_tab: False
+        password: True
+        required: True
+    MDFillRoundFlatIconButton:
+        pos_hint: {"center_x": .5, "center_y": .23}
+        icon: "login-variant"
+        text: "Register"
+        on_release:
+            root.check_credentials()
+
+<Login>:
+    name: 'LoginScreen'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    MDToolbar:
+        title: "Login"
+        size_hint: 1, None
+        height: "40dp"
+        pos_hint: {'top': 1}
+        left_action_items: [["arrow-left", lambda x: root.prev_screen()]]
+    Image:
+        source: './LoginScreen/LoginBackground.jpeg'
+        pos_hint: {"center_x": .65, "center_y": .75}
+        size_hint: None, None
+        size: '200dp', '200dp'
+    TextInput:
+        id: login_username
+        hint_text: 'Enter Username'
+        multiline: False
+        size_hint: 0.8, None
+        height: '30dp'
+        pos_hint: {"center_x": .5, "center_y": .55}
+        required: True
+    TextInput:
+        id: login_password
+        hint_text: 'Enter Password'
+        multiline: False
+        size_hint: 0.8, None
+        height: '30dp'
+        pos_hint: {"center_x": .5, "center_y": .45}
+        required: True
+    MDFillRoundFlatIconButton:
+        pos_hint: {"center_x": .5, "center_y": .30}
+        icon: "login"
+        text: "Login"
+        on_press:
+            root.manager.current = 'MapScreen'
+
+<WelcomeScreen>:
+    name: 'UserWelcomeScreen'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    MDLabel:
+        text: 'This is User Welcome Screen Screen'
+
+<Dashboard>:
+    name: 'UserDashboard'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    MDLabel:
+        text: 'This is User Dashboard'
+
+<Map>:
+    name: 'MapScreen'
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    MapView:
+        lat: 26.862471
+        lon: 75.762413
+        zoom: 15
+        double_tap_zoom: True
+        MapMarkerPopup:
+            source: './MapScreen/marker.png'
+            size: '80dp', '80dp'
+            lat: 26.862471
+            lon: 75.762413
+    MDToolbar:
+        title: "Location"
+        size_hint: 1, None
+        height: "40dp"
+        pos_hint: {'top': 1}
+    MDFloatingActionButton:
+        icon: 'arrow-left'
+        pos_hint: {'center_x': 0.15, 'center_y': 0.09}
+        on_release:
+            root.manager.current = 'LoginScreen'
+            root.manager.transition.direction = 'right'
+    MDFloatingActionButton:
+        icon: 'map-marker'
+        pos_hint: {'center_x': 0.85, 'center_y': 0.09}
+        on_release:
+            root.manager.current = 'MapScreen'
+            root.manager.transition.direction = 'left'
